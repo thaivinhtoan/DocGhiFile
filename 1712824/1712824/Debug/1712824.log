@@ -1,0 +1,24 @@
+﻿Build started 20/04/2018 12:27:50 AM.
+     1>Project "D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\1712824\1712824.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Ham.cpp
+         Ham.cpp
+     1>d:\kỹ thuật lập trình\doan1_1712824\1712824\1712824\ham.cpp(11): warning C4996: 'fwscanf': This function or variable may be unsafe. Consider using fwscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(563) : see declaration of 'fwscanf'
+     1>d:\kỹ thuật lập trình\doan1_1712824\1712824\1712824\ham.cpp(22): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\wchar.h(1042) : see declaration of 'wcscpy'
+     1>d:\kỹ thuật lập trình\doan1_1712824\1712824\1712824\ham.cpp(23): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\wchar.h(1034) : see declaration of 'wcscat'
+     1>d:\kỹ thuật lập trình\doan1_1712824\1712824\1712824\ham.cpp(24): warning C4996: 'wcscat': This function or variable may be unsafe. Consider using wcscat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\wchar.h(1034) : see declaration of 'wcscat'
+     1>d:\kỹ thuật lập trình\doan1_1712824\1712824\1712824\ham.cpp(25): warning C4996: '_wfopen': This function or variable may be unsafe. Consider using _wfopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(590) : see declaration of '_wfopen'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\Debug\1712824.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\Debug\1712824.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\Debug\1712824.lib" /MACHINE:X86 Debug\Ham.obj
+         Debug\Main.obj
+         1712824.vcxproj -> D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\Debug\1712824.exe
+     1>Done Building Project "D:\Kỹ thuật lập trình\DoAn1_1712824\1712824\1712824\1712824.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.10

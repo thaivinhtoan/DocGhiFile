@@ -19,5 +19,5 @@ struct SinhVien
 typedef struct SinhVien SINHVIEN;
 
 void _DocFile(FILE* &f);
-void XuatHTML(SINHVIEN &sv);
+void _XuatHTML(SINHVIEN &sv);
 

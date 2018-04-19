@@ -9,13 +9,13 @@ void _DocFile(FILE* &f)
 		while (!feof(f))
 		{
 			fwscanf(f, L"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^'\n']\n", &sv.MSSV, &sv.HoTen, &sv.Khoa, &sv.KhoaHoc, &sv.NgaySinh, &sv.Email, &sv.AnhCaNhan, &sv.MoTaBanThan, &sv.SoThich);
-			XuatHTML(sv);
+			_XuatHTML(sv);
 		}
 	}
 }
 
 
-void XuatHTML(SINHVIEN &sv)
+void _XuatHTML(SINHVIEN &sv)
 {
 	wchar_t Folder[30] = L"Output\\";
 	wchar_t File[15];
@@ -75,7 +75,7 @@ void XuatHTML(SINHVIEN &sv)
 		fwprintf(f, L"<ul class = \"TextInList\">\n");
 		fwprintf(f, L"<li>Họ và tên : %ls</li>\n", sv.HoTen);
 		fwprintf(f, L"<li>MSSV : %ls</li>\n", sv.MSSV);
-		fwprintf(f, L"<li>Sinh viên khoa %ls</li>\n", sv.Khoa);
+		fwprintf(f, L"<li>Sinh viên khoa : %ls</li>\n", sv.Khoa);
 		fwprintf(f, L"<li>Email : %ls</li>\n", sv.Email);
 		fwprintf(f, L"<li>Ngày sinh : %ls</li>\n", sv.NgaySinh);
 		fwprintf(f, L"</ul>\n");
