@@ -1,5 +1,10 @@
 #include "Header.h"
 
+/*
+Do an duoc thuc hien tren VS 2013
+Khong co LOI bien dich
+*/
+
 void main()
 {
 	FILE *fSV_in = _wfopen(L"ThongTinSinhVien.csv", L"rt, ccs=UTF-8");
@@ -9,7 +14,7 @@ void main()
 	}
 	else
 	{
-		_DocFile(fSV_in);
+		_XuLiFile(fSV_in);
 		fclose(fSV_in);
 	}
 	

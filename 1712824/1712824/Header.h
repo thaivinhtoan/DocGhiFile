@@ -1,8 +1,9 @@
 ﻿#include <stdio.h>
-#include <wchar.h>
 #include <stdlib.h>
-#include <fcntl.h> 
-#include <io.h>    
+#include <wchar.h> //wchar_t
+#include <fcntl.h> //_O_U8TEXT
+#include <io.h>    //_setmode( )
+
 
 struct SinhVien
 {
@@ -18,6 +19,5 @@ struct SinhVien
 };
 typedef struct SinhVien SINHVIEN;
 
-void _DocFile(FILE* &f);
+void _XuLiFile(FILE* &f);
 void _XuatHTML(SINHVIEN &sv);
-

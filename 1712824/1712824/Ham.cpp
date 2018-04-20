@@ -1,6 +1,6 @@
 ﻿#include "Header.h"
 
-void _DocFile(FILE* &f)
+void _XuLiFile(FILE* &f)
 {
 	SINHVIEN sv;
 	rewind(f);
