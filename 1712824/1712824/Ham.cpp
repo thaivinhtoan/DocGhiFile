@@ -2,13 +2,14 @@
 
 void _XuLiFile(FILE* &f)
 {
-	SINHVIEN sv;
+	SINHVIEN sv ;
 	rewind(f);
 	if (f != NULL)
 	{
 		while (!feof(f))
 		{
 			fwscanf(f, L"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^'\n']\n", &sv.MSSV, &sv.HoTen, &sv.Khoa, &sv.KhoaHoc, &sv.NgaySinh, &sv.Email, &sv.AnhCaNhan, &sv.MoTaBanThan, &sv.SoThich);
+			_ChuanHoaSV(sv);
 			_XuatHTML(sv);
 		}
 	}
@@ -17,6 +18,7 @@ void _XuLiFile(FILE* &f)
 
 void _XuatHTML(SINHVIEN &sv)
 {
+	//Tao file
 	wchar_t Folder[30] = L"Output\\";
 	wchar_t File[15];
 	wcscpy(File, sv.MSSV);
@@ -25,6 +27,7 @@ void _XuatHTML(SINHVIEN &sv)
 	FILE* f = _wfopen(Folder, L"w");
 	_setmode(_fileno(f), _O_U8TEXT);
 
+	//Ghi File
 	if (f != NULL)
 	{
 		fwprintf(f, L"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
@@ -80,12 +83,26 @@ void _XuatHTML(SINHVIEN &sv)
 		fwprintf(f, L"<li>Ngày sinh : %ls</li>\n", sv.NgaySinh);
 		fwprintf(f, L"</ul>\n");
 		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<div class = \"InfoGroup\">Sở thích</div>\n");
-		fwprintf(f, L"<div>\n");
-		fwprintf(f, L"<ul class = \"TextInList\">\n");
-		fwprintf(f, L"	<li>%ls</li>\n", sv.SoThich);
-		fwprintf(f, L"</ul>\n");
-		fwprintf(f, L"</div>\n");
+		if (iDemSoThich(sv.SoThich) > 0) 
+		{
+			fwprintf(f, L"<div class = \"InfoGroup\">Sở thích</div>\n");
+			fwprintf(f, L"<div>\n");
+			fwprintf(f, L"<ul class = \"TextInList\">\n");
+			fwprintf(f, L"	<li>%ls</li>\n", sv.SoThich);
+			/*int temp=0;
+			for (int n = 1; n <= iDemSoThich(sv.SoThich); n++)
+			{
+				fwprintf(f, L"	<li>");
+				while (sv.SoThich[temp] != ',' || sv.SoThich[temp] != '\0') {
+					wchar_t ch = sv.SoThich[temp];
+					fputwc(ch, f);
+					temp++;
+				}
+				fwprintf(f, L"</li>\n");
+			}*/
+			fwprintf(f, L"</ul>\n");
+			fwprintf(f, L"</div>\n");
+		}
 		fwprintf(f, L"<div class = \"InfoGroup\">Mô tả</div>\n");
 		fwprintf(f, L"<div class = \"Description\">\n");
 		fwprintf(f, L"%ls\n", sv.MoTaBanThan);
@@ -114,4 +131,30 @@ void _XuatHTML(SINHVIEN &sv)
 		fwprintf(f, L"</html>");
 	}
 	fclose(f);
+}
+
+void _ChuanHoaSV(SINHVIEN &sv)
+{
+	_ChuanHoa(sv.MSSV);
+	_ChuanHoa(sv.HoTen);
+	_ChuanHoa(sv.Khoa);
+	_ChuanHoa(sv.KhoaHoc);
+	_ChuanHoa(sv.NgaySinh);
+	_ChuanHoa(sv.Email);
+	_ChuanHoa(sv.AnhCaNhan);
+	_ChuanHoa(sv.MoTaBanThan);
+	_ChuanHoa(sv.SoThich, 1);
+}
+
+int iDemSoThich(wchar_t* n)
+{
+	//Khong co so thich
+	if (iStringLength(n) == 0) return 0;
+
+	int dem = 1;
+	for (int i = 0; i< iStringLength(n); i++) {
+		if (*(n + i) == ',') dem++;
+	}
+
+	return dem;
 }

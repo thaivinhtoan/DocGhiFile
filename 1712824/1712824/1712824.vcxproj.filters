@@ -26,5 +26,8 @@
     <ClCompile Include="Ham.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HamPhu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
