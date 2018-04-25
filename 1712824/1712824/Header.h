@@ -1,5 +1,7 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
+#include <malloc.h>
+#include <math.h>  //pow()
 #include <wchar.h> //wchar_t
 #include <fcntl.h> //_O_U8TEXT
 #include <io.h>    //_setmode( ) && _open()
@@ -20,7 +22,7 @@ struct SinhVien
 	wchar_t MSSV[size_MSSV];
 	wchar_t HoTen[size_HoTen];
 	wchar_t Khoa[size_Khoa];
-	wchar_t KhoaHoc[size_KhoaHoc];
+	int     KhoaHoc;
 	wchar_t NgaySinh[size_NgaySinh];
 	wchar_t Email[size_Email];
 	wchar_t AnhCaNhan[size_AnhCaNhan];
@@ -32,8 +34,8 @@ typedef struct SinhVien SINHVIEN;
 
 //Ham.cpp
 void _XuLiFile(FILE* &f);
-void _XuatHTML(SINHVIEN &sv);
-void _ChuanHoaSV(SINHVIEN &sv);
+void _XuatHTML(SINHVIEN sv);
+void _ChuanHoaSV(SINHVIEN &sv,wchar_t* wKhoaHoc);
 int iDemSoThich(wchar_t* n);
 
 //HamPhu.cpp
@@ -41,3 +43,4 @@ int iStringLength(wchar_t* s);
 void _ChuanHoa(wchar_t* A,int = 0);
 void _Upper(wchar_t &a);
 void _Lower(wchar_t &a);
+int StrtoInt(wchar_t* a);

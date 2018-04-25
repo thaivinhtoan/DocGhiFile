@@ -4,20 +4,28 @@
 void _XuLiFile(FILE* &f)
 {
 	SINHVIEN sv ;
+	//sv.KhoaHoc
+	wchar_t wKhoaHoc[size_KhoaHoc];
 	rewind(f);
 	if (f != NULL)
 	{
 		while (!feof(f))
 		{
-			fwscanf(f, L"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^'\n']\n", &sv.MSSV, &sv.HoTen, &sv.Khoa, &sv.KhoaHoc, &sv.NgaySinh, &sv.Email, &sv.AnhCaNhan, &sv.MoTaBanThan, &sv.SoThich);
-			_ChuanHoaSV(sv);
+			//Input data
+			fwscanf(f, L"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^'\n']\n", &sv.MSSV, &sv.HoTen, &sv.Khoa, &wKhoaHoc, &sv.NgaySinh, &sv.Email, &sv.AnhCaNhan, &sv.MoTaBanThan, &sv.SoThich);
+			//Sandardized SINHVIEN
+			_ChuanHoaSV(sv,wKhoaHoc);
+			//add sv.KhoaHoc
+			sv.KhoaHoc = StrtoInt(wKhoaHoc);
+			
+			//Tao .htm
 			_XuatHTML(sv);
 		}
 	}
 }
 
 //Create file && write
-void _XuatHTML(SINHVIEN &sv)
+void _XuatHTML(SINHVIEN sv)
 {
 	//Tao file
 	wchar_t Folder[30] = L"Output\\";
@@ -57,7 +65,7 @@ void _XuatHTML(SINHVIEN &sv)
 		fwprintf(f, L"<div class = \"Personal_Department\">%ls</div>\n", sv.Khoa);
 		fwprintf(f, L"<br />\n");
 		fwprintf(f, L"<div class = \"Personal_Phone\">\n");
-		fwprintf(f, L"Khóa : %ls\n", sv.KhoaHoc);
+		fwprintf(f, L"Khóa : %ld\n", sv.KhoaHoc);
 		fwprintf(f, L"</div>\n");
 		fwprintf(f, L"<br />\n");
 		fwprintf(f, L"<br />\n");
@@ -135,12 +143,12 @@ void _XuatHTML(SINHVIEN &sv)
 }
 
 //Sandardized string in SINHVIEN struct
-void _ChuanHoaSV(SINHVIEN &sv)
+void _ChuanHoaSV(SINHVIEN &sv,wchar_t* wKhoaHoc)
 {
 	_ChuanHoa(sv.MSSV);
 	_ChuanHoa(sv.HoTen);
 	_ChuanHoa(sv.Khoa);
-	_ChuanHoa(sv.KhoaHoc);
+	_ChuanHoa(wKhoaHoc);
 	_ChuanHoa(sv.NgaySinh);
 	_ChuanHoa(sv.Email);
 	_ChuanHoa(sv.AnhCaNhan);

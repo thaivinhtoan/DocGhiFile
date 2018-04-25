@@ -1,7 +1,7 @@
 ﻿#include "Header.h"
 
 /*
-  Các bước chương trình thực hiện:
+  PROGRAM STEPS:
   -From file to struct
   -Sandardized data (delete redundant character (Ex: ' , " ) )
   -Create file .htm

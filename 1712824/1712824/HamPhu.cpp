@@ -86,10 +86,10 @@ void _Upper(wchar_t &a)
 	wchar_t Hoa[] = L"ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
 	bool IsWchar = false;
 
-	for (int j = 0; Thuong[j] != '\0'; j++) {
-		if (a == Thuong[j])
+	for (int i = 0; Thuong[i] != '\0'; i++) {
+		if (a == Thuong[i])
 		{
-			a = Hoa[j];
+			a = Hoa[i];
 			IsWchar = true;
 			break;
 		}
@@ -106,10 +106,10 @@ void _Lower(wchar_t &a)
 	wchar_t Hoa[] = L"ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬĐÉÈẺẼẸÊẾỀỂỄỆÍÌỈĨỊÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÚÙỦŨỤƯỨỪỬỮỰÝỲỶỸỴ";
 	bool IsWchar = false;
 
-	for (int j = 0; Thuong[j] != '\0'; j++) {
-		if (a == Hoa[j])
+	for (int i = 0; Thuong[i] != '\0'; i++) {
+		if (a == Hoa[i])
 		{
-			a = Thuong[j];
+			a = Thuong[i];
 			IsWchar = true;
 			break;
 		}
@@ -117,4 +117,25 @@ void _Lower(wchar_t &a)
 	if (!IsWchar)
 		if (a >= 'A' && a <= 'Z')
 			a += 32;
+}
+
+//String to Int
+int StrtoInt(wchar_t* a)
+{
+	int iOutput=1;
+	wchar_t Char[] = L"0123456789";
+	int     So[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int temp = 1;
+	for (int i = iStringLength(a) - 1; i >= 0; i--)
+	{
+		for (int j = 0; Char[j] != '\0'; j++)
+		{
+			if (*(a + i) == Char[j])
+			{
+				iOutput += So[j] * temp;
+				temp = temp * 10;
+			}
+		}
+	}
+	return iOutput;
 }
