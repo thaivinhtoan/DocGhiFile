@@ -1,5 +1,6 @@
 ﻿#include "Header.h"
 
+//From file to struct
 void _XuLiFile(FILE* &f)
 {
 	SINHVIEN sv ;
@@ -15,7 +16,7 @@ void _XuLiFile(FILE* &f)
 	}
 }
 
-
+//Create file && write
 void _XuatHTML(SINHVIEN &sv)
 {
 	//Tao file
@@ -89,17 +90,17 @@ void _XuatHTML(SINHVIEN &sv)
 			fwprintf(f, L"<div>\n");
 			fwprintf(f, L"<ul class = \"TextInList\">\n");
 			fwprintf(f, L"	<li>%ls</li>\n", sv.SoThich);
-			/*int temp=0;
-			for (int n = 1; n <= iDemSoThich(sv.SoThich); n++)
-			{
-				fwprintf(f, L"	<li>");
-				while (sv.SoThich[temp] != ',' || sv.SoThich[temp] != '\0') {
-					wchar_t ch = sv.SoThich[temp];
-					fputwc(ch, f);
-					temp++;
-				}
-				fwprintf(f, L"</li>\n");
-			}*/
+			//int temp=0;
+			//for (int n = 1; n <= iDemSoThich(sv.SoThich); n++)
+			//{
+			//	fwprintf(f, L"	<li>");
+			//	while (sv.SoThich[temp]!= ',' || sv.SoThich[temp] != '\0')
+			//	{
+			//		//fwprintf(f,L"%c", sv.SoThich[temp]);
+			//		temp++;
+			//	}
+			//	fwprintf(f, L"</li>\n");
+			//}
 			fwprintf(f, L"</ul>\n");
 			fwprintf(f, L"</div>\n");
 		}
@@ -133,6 +134,7 @@ void _XuatHTML(SINHVIEN &sv)
 	fclose(f);
 }
 
+//Sandardized string in SINHVIEN struct
 void _ChuanHoaSV(SINHVIEN &sv)
 {
 	_ChuanHoa(sv.MSSV);
@@ -146,6 +148,7 @@ void _ChuanHoaSV(SINHVIEN &sv)
 	_ChuanHoa(sv.SoThich, 1);
 }
 
+//Count hoppy
 int iDemSoThich(wchar_t* n)
 {
 	//Khong co so thich

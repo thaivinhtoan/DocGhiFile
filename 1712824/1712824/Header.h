@@ -4,12 +4,12 @@
 #include <fcntl.h> //_O_U8TEXT
 #include <io.h>    //_setmode( ) && _open()
 
-//So luong ki tu toi da cua chuoi  -->> De thay doi khi can
+// Max long string in struct  -->> Easy change if need 
 #define size_MSSV        11
 #define size_HoTen       31
 #define size_Khoa        31
-#define size_KhoaHoc     5
-#define size_NgaySinh    11
+#define size_KhoaHoc     7
+#define size_NgaySinh    15
 #define size_Email       31
 #define size_AnhCaNhan   31
 #define size_MoTaBanThan 1001
@@ -30,15 +30,14 @@ struct SinhVien
 typedef struct SinhVien SINHVIEN;
 
 
-//Ham
+//Ham.cpp
 void _XuLiFile(FILE* &f);
 void _XuatHTML(SINHVIEN &sv);
 void _ChuanHoaSV(SINHVIEN &sv);
 int iDemSoThich(wchar_t* n);
 
-//Ham Phu
+//HamPhu.cpp
 int iStringLength(wchar_t* s);
-wchar_t* CopyString(wchar_t* in, wchar_t* out, int &n);
 void _ChuanHoa(wchar_t* A,int = 0);
 void _Upper(wchar_t &a);
 void _Lower(wchar_t &a);

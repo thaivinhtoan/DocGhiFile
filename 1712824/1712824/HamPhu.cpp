@@ -1,6 +1,6 @@
 ﻿#include "Header.h"
 
-//Do dai chuoi
+//Long string
 int iStringLength(wchar_t* s)
 {
 	int i = 0;
@@ -11,7 +11,7 @@ int iStringLength(wchar_t* s)
 	return i;
 }
 
-//Chuan hoa chuoi
+//Sandardized string
 void _ChuanHoa(wchar_t* A, int x )
 {
 	int i;
@@ -79,17 +79,7 @@ void _ChuanHoa(wchar_t* A, int x )
 	}
 }
 
-wchar_t* CopyString( wchar_t* in,wchar_t* out, int &n)
-{
-	int i=0;
-	for (i; *(in + i) != ',' || *(in + i) != '\0'; i++){
-		*(out + i) = *(in + i);
-		n = i;
-	}
-	out[i] = '\0';
-	return out;
-}
-
+//Change lowercase to uppercase
 void _Upper(wchar_t &a)
 {
 	wchar_t Thuong[] = L"áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ";
@@ -109,6 +99,7 @@ void _Upper(wchar_t &a)
 			a -= 32;
 }
 
+//Change uppercasel to owercase
 void _Lower(wchar_t &a)
 {
 	wchar_t Thuong[] = L"áàảãạăắằẳẵặâấầẩẫậđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ";
