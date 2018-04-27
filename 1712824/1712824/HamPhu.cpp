@@ -60,7 +60,7 @@ void _ChuanHoa(wchar_t* A, int x )
 	}
 
 	//Dung de chuan hoa chuoi SoThich
-	if (x != 0) {
+	if (x == 1) {
 		//Viet thuong chuoi
 		i = 1;
 		while (i < iStringLength(A))
@@ -74,6 +74,17 @@ void _ChuanHoa(wchar_t* A, int x )
 		while (i < iStringLength(A)) {
 			if (*(A + i) == ',')
 				_Upper(*(A + i + 1));
+			i++;
+		}
+	}
+
+	//sv.Khoa
+	if (x == 2)
+	{
+		i = 0;
+		while (i < iStringLength(A))
+		{
+			_Upper(*(A + i));
 			i++;
 		}
 	}
@@ -138,4 +149,47 @@ int StrtoInt(wchar_t* a)
 		}
 	}
 	return iOutput;
+}
+
+
+void ReplaceString(wchar_t* buf, wchar_t*Begin, wchar_t*End, wchar_t*str)
+{
+	int Pos1 = FindSubString(buf, Begin);
+	int Pos2 = FindSubString(buf, End);
+	if (Pos1 != -1 && Pos2 != -1) {	
+		int lenbuf = wcslen(buf);
+		int pos_ins = Pos1 + wcslen(Begin);	
+											
+		wchar_t* temp1 = (wchar_t*)malloc(512 * sizeof(wchar_t));
+		wchar_t* temp2 = (wchar_t*)malloc(512 * sizeof(wchar_t));
+		wchar_t* temp3 = (wchar_t*)malloc(512 * sizeof(wchar_t));
+
+		wcsncpy(temp1, buf, pos_ins);
+		temp1[pos_ins] = '\0';
+		wcscpy(temp2, buf + pos_ins);
+		wcscpy(temp3, buf + Pos2);
+		wcscpy(temp2, str);
+		temp2[wcslen(str)] = '\0';
+		wcscat(temp2, temp3);
+		wcscat(temp1, temp2);
+		wcscpy(buf, temp1);
+		free(temp1);
+		free(temp2);
+		free(temp3);
+	}
+}
+
+int FindSubString(wchar_t* str, wchar_t* substr)
+{
+	int len = wcslen(str);
+	int slen = wcslen(substr);
+	for (int i = 0; i < len - slen + 1; i++)
+	{
+		wchar_t* temp = (wchar_t*)malloc(sizeof(wchar_t)*(slen));
+		wcsncpy(temp, str + i, slen);
+		temp[slen] = '\0';
+		if (wcscmp(temp, substr) == 0)
+			return i;
+	}
+	return -1;
 }

@@ -1,6 +1,5 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
 #include <math.h>  //pow()
 #include <wchar.h> //wchar_t
 #include <fcntl.h> //_O_U8TEXT
@@ -34,9 +33,11 @@ typedef struct SinhVien SINHVIEN;
 
 //Ham.cpp
 void _XuLiFile(FILE* &f);
+void PrintSV(SINHVIEN sv, int i);
 void _XuatHTML(SINHVIEN sv);
-void _ChuanHoaSV(SINHVIEN &sv,wchar_t* wKhoaHoc);
+void _ChuanHoaSV(SINHVIEN &sv);
 int iDemSoThich(wchar_t* n);
+
 
 //HamPhu.cpp
 int iStringLength(wchar_t* s);
@@ -44,3 +45,5 @@ void _ChuanHoa(wchar_t* A,int = 0);
 void _Upper(wchar_t &a);
 void _Lower(wchar_t &a);
 int StrtoInt(wchar_t* a);
+int FindSubString(wchar_t* str, wchar_t* substr);
+void ReplaceString(wchar_t* buf, wchar_t* Begin, wchar_t* End, wchar_t*str);

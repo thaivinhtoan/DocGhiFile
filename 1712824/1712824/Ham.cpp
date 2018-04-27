@@ -1,11 +1,44 @@
 ﻿#include "Header.h"
 
+wchar_t FolderOutput[] = L"Output\\";
+wchar_t FileTail[] = L".htm";
+wchar_t YearSetup[] = L"2018";
+wchar_t NumberStudent_Name[] = L"1712824 - Thái Vĩnh Toàn";
+
+wchar_t FileMau[] = L"Output\\Mau.htm";
+
+wchar_t Title[] = L"<title>HCMUS - ";
+wchar_t NameMSSV[] = L"\"Personal_FullName\">";
+wchar_t FacUp[] = L"\"Personal_Department\">KHOA ";
+wchar_t EmailTop[] = L"Email: ";
+wchar_t EndEmailTop[] = L"\n";
+wchar_t Photo[] = L"<img src=\"Images/";
+wchar_t EndPhoto[] = L"\" class=\"Personal_Hinhcanhan";
+
+wchar_t Name[] = L"<li>Họ và tên: ";
+wchar_t MSSV[] = L"<li>MSSV: ";
+wchar_t	Khoa[] = L"<li>Sinh viên khoa ";
+wchar_t EmailBot[] = L"<li>Email: ";
+wchar_t Birth[] = L"<li>Ngày sinh: ";
+wchar_t Mota[] = L"Description";
+wchar_t Hobby[] = L"Sở thích";
+wchar_t HobbyEnd[] = L"</ul>";
+wchar_t HobbyElement[] = L"<li>";
+wchar_t End[] = L"</";	
+
+wchar_t Year[] = L"@";
+wchar_t EndFooter[] = L"</br>";
+wchar_t InfoFooter[] = L"MSSV - Tên sinh viên thực hiện";
+
+
+
 //From file to struct
 void _XuLiFile(FILE* &f)
 {
-	SINHVIEN sv ;
+	SINHVIEN sv;
 	//sv.KhoaHoc
 	wchar_t wKhoaHoc[size_KhoaHoc];
+	int i = 0;
 	rewind(f);
 	if (f != NULL)
 	{
@@ -13,142 +46,151 @@ void _XuLiFile(FILE* &f)
 		{
 			//Input data
 			fwscanf(f, L"%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^'\n']\n", &sv.MSSV, &sv.HoTen, &sv.Khoa, &wKhoaHoc, &sv.NgaySinh, &sv.Email, &sv.AnhCaNhan, &sv.MoTaBanThan, &sv.SoThich);
+			i++;
 			//Sandardized SINHVIEN
-			_ChuanHoaSV(sv,wKhoaHoc);
+			_ChuanHoaSV(sv);
 			//add sv.KhoaHoc
 			sv.KhoaHoc = StrtoInt(wKhoaHoc);
-			
+			//Print out console
+			PrintSV(sv, i);
+
 			//Tao .htm
 			_XuatHTML(sv);
 		}
 	}
 }
 
-//Create file && write
+void PrintSV(SINHVIEN sv, int i)
+{
+	wprintf(L"\n\nThông tin của sinh viên thứ %ld:\n\n", i);
+	wprintf(L" - MSSV: %ls\n", sv.MSSV);
+	wprintf(L" - Họ và tên: %ls\n", sv.HoTen);
+	wprintf(L" - Khoa: %ls\n", sv.Khoa);
+	wprintf(L" - Khóa học: %ld\n", sv.KhoaHoc);
+	wprintf(L" - Ngày sinh: %ls\n", sv.NgaySinh);
+	wprintf(L" - Email: %ls\n", sv.Email);
+	wprintf(L" - Ảnh cá nhân: %ls\n", sv.AnhCaNhan);
+	wprintf(L" - Mô tả bản thân: %ls\n", sv.MoTaBanThan);
+	if (iDemSoThich(sv.SoThich) == 0)
+		wprintf(L" - Sở thích: Không có sở thích\n");
+	else
+		wprintf(L" - Sở thích: %ls\n", sv.SoThich);
+}
+
+//Create && write file .htm
 void _XuatHTML(SINHVIEN sv)
 {
-	//Tao file
-	wchar_t Folder[30] = L"Output\\";
-	wchar_t File[15];
+	
+	FILE* Mau = _wfopen(FileMau , L"rt, ccs=UTF-8");
+	if (!Mau) {
+		wprintf(L"\n\n\n%ls not exist\n\n\n",FileMau);
+		return;
+	}
+
+	//Create file .htm
+	wchar_t* Folder = (wchar_t*)malloc(sizeof(wchar_t) * 30);
+	wchar_t* File = (wchar_t*)malloc(sizeof(wchar_t) * 15);
+	wcscpy(Folder, FolderOutput);
 	wcscpy(File, sv.MSSV);
-	wcscat(File, L".htm");
-	wcscat(Folder,	File);
+	wcscat(File, FileTail);
+	wcscat(Folder, File);
 	FILE* f = _wfopen(Folder, L"w");
 	_setmode(_fileno(f), _O_U8TEXT);
+	free(Folder);
+	free(File);
 
-	//Ghi File
-	if (f != NULL)
-	{
-		fwprintf(f, L"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n");
-		fwprintf(f, L"<html xmlns=\"http://www.w3.org/1999/xhtml\">\n");
-		fwprintf(f, L"<head>\n");
-		fwprintf(f, L"<meta http-equiv = \"Content-Type\" content = \"text/html; charset=utf-8\" / >\n");
-		fwprintf(f, L"<link rel = \"stylesheet\" type = \"text/css\" href = \"personal.css\" / >\n");
-		fwprintf(f, L"<title>HCMUS - %ls</title>\n", sv.HoTen);
-		fwprintf(f, L"</head>\n");
-		fwprintf(f, L"<body>\n");
-		fwprintf(f, L"<div class = \"Layout_container\">\n");
-		fwprintf(f, L"<!--Begin Layout Banner Region-->\n");
-		fwprintf(f, L"<div class = \"Layout_Banner\" >\n");
-		fwprintf(f, L"<div><img id = \"logo\" src = \"Images/logo.jpg\" height = \"105\" / ></div>\n");
-		fwprintf(f, L"<div class = \"Header_Title\">TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN </div>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<!--End Layout Banner Region-->\n");
-		fwprintf(f, L"<!--Begin Layout MainContents Region-->\n");
-		fwprintf(f, L"<div class = \"Layout_MainContents\">\n");
-		fwprintf(f, L"<!--Begin Below Banner Region-->\n");
-		fwprintf(f, L"<div class = \"Personal_Main_Information\">\n");
-		fwprintf(f, L"<!--Begin Thông tin cá nhân của thầy cô---------------------------------------------------------------------------------------- - -->\n");
-		fwprintf(f, L"<div class = \"Personal_Location\">\n");
-		fwprintf(f, L"<img src = \"Images/LogoFooter.jpg\" width = \"27\" height = \"33\" / >\n");
-		fwprintf(f, L"<span class = \"Personal_FullName\">%ls - %ls</span>\n", sv.HoTen, sv.MSSV);
-		fwprintf(f, L"<div class = \"Personal_Department\">%ls</div>\n", sv.Khoa);
-		fwprintf(f, L"<br />\n");
-		fwprintf(f, L"<div class = \"Personal_Phone\">\n");
-		fwprintf(f, L"Khóa : %ld\n", sv.KhoaHoc);
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<br />\n");
-		fwprintf(f, L"<br />\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<!--End Thông tin cá nhân của thầy cô---------------------------------------------------------------------------------------- - -->\n");
-		fwprintf(f, L"<div class = \"Personal_HinhcanhanKhung\">\n");
-		fwprintf(f, L"<img src = \"Images/%ls\" class = \"Personal_Hinhcanhan\" / >\n", sv.AnhCaNhan);
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<!--End Below Banner Region-->\n");
-		fwprintf(f, L"<!--Begin MainContents Region-->\n");
-		fwprintf(f, L"<div class = \"MainContain\">\n");
-		fwprintf(f, L"\n");
-		fwprintf(f, L"<!--Begin Top Region-->\n");
-		fwprintf(f, L"<div class = \"MainContain_Top\">\n");
-		fwprintf(f, L"\n");
-		fwprintf(f, L"<div class = \"InfoGroup\">Thông tin cá nhân</div>\n");
-		fwprintf(f, L"<div>\n");
-		fwprintf(f, L"<ul class = \"TextInList\">\n");
-		fwprintf(f, L"<li>Họ và tên : %ls</li>\n", sv.HoTen);
-		fwprintf(f, L"<li>MSSV : %ls</li>\n", sv.MSSV);
-		fwprintf(f, L"<li>Sinh viên khoa : %ls</li>\n", sv.Khoa);
-		fwprintf(f, L"<li>Email : %ls</li>\n", sv.Email);
-		fwprintf(f, L"<li>Ngày sinh : %ls</li>\n", sv.NgaySinh);
-		fwprintf(f, L"</ul>\n");
-		fwprintf(f, L"</div>\n");
-		if (iDemSoThich(sv.SoThich) > 0) 
-		{
-			fwprintf(f, L"<div class = \"InfoGroup\">Sở thích</div>\n");
-			fwprintf(f, L"<div>\n");
-			fwprintf(f, L"<ul class = \"TextInList\">\n");
-			fwprintf(f, L"	<li>%ls</li>\n", sv.SoThich);
-			//int temp=0;
-			//for (int n = 1; n <= iDemSoThich(sv.SoThich); n++)
-			//{
-			//	fwprintf(f, L"	<li>");
-			//	while (sv.SoThich[temp]!= ',' || sv.SoThich[temp] != '\0')
-			//	{
-			//		//fwprintf(f,L"%c", sv.SoThich[temp]);
-			//		temp++;
-			//	}
-			//	fwprintf(f, L"</li>\n");
-			//}
-			fwprintf(f, L"</ul>\n");
-			fwprintf(f, L"</div>\n");
+	wchar_t* KHOA = (wchar_t*)malloc(sizeof(wchar_t) * 30);
+	wcscpy(KHOA, sv.Khoa);
+	_ChuanHoa(KHOA, 2);
+
+	wchar_t* Ten_MSSV = (wchar_t*)malloc(sizeof(wchar_t) * 50);
+	wcscpy(Ten_MSSV, sv.HoTen);
+	wcscat(Ten_MSSV, L" - ");
+	wcscat(Ten_MSSV, sv.MSSV);
+
+	int i;
+	wchar_t* buf = (wchar_t*)malloc(1024);
+
+	while (!feof(Mau)) {
+		fgetws(buf, 1024, Mau);
+		ReplaceString(buf, Title, End, sv.HoTen);
+		ReplaceString(buf, FacUp, End, KHOA);
+		ReplaceString(buf, EmailTop, EndEmailTop, sv.Email);
+		ReplaceString(buf, NameMSSV, End, Ten_MSSV);
+		ReplaceString(buf, Photo, EndPhoto, sv.AnhCaNhan);
+		ReplaceString(buf, Name, End, sv.HoTen);
+		ReplaceString(buf, MSSV, End, sv.MSSV);
+		ReplaceString(buf, Khoa, End, sv.Khoa);
+		ReplaceString(buf, Birth, End, sv.NgaySinh);
+		ReplaceString(buf, EmailBot, End, sv.Email);
+		ReplaceString(buf, Year, EndFooter, YearSetup);
+
+		if (wcsstr(buf, Mota) != NULL) {
+			fputws(buf, f);
+			fgetws(buf, 1024, Mau);
+			wchar_t keyend[] = L"\n";
+			int i = 0;
+			wchar_t* keybegin = (wchar_t*)malloc(125);
+			for (i = 0; buf[i] == '\t' || buf[i] == ' '; i++)
+			{
+				keybegin[i] = buf[i];
+			}
+			keybegin[i] = '\0';
+
+			ReplaceString(buf, keybegin, keyend, sv.MoTaBanThan);
+
+			free(keybegin);
 		}
-		fwprintf(f, L"<div class = \"InfoGroup\">Mô tả</div>\n");
-		fwprintf(f, L"<div class = \"Description\">\n");
-		fwprintf(f, L"%ls\n", sv.MoTaBanThan);
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"\n");
-		fwprintf(f, L"<!--Begin Layout Footer-->\n");
-		fwprintf(f, L"<div class = \"Layout_Footer\">\n");
-		fwprintf(f, L"<div class = \"divCopyright\">\n");
-		fwprintf(f, L"<br/>\n");
-		fwprintf(f, L"<img src = \"Images/LogoFooter_gray.jpg\" width = \"34\" height = \"41\" / ><br/>\n");
-		fwprintf(f, L"<br/>\n");
-		fwprintf(f, L"@2018</br>\n");
-		fwprintf(f, L"Đồ án giữa kỳ</br>\n");
-		fwprintf(f, L"Kỹ thuật lập trình</br>\n");
-		fwprintf(f, L"TH2018 / 04</br>\n");
-		fwprintf(f, L"1712824 - Thái Vĩnh Toàn </br>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"<!--End Layout Footer-->\n");
-		fwprintf(f, L"</div>\n");
-		fwprintf(f, L"</body>\n");
-		fwprintf(f, L"</html>");
+
+		//Change sv.SoThich
+		if (wcsstr(buf, Hobby) != NULL) {
+			for (i = 1; i <= 3; i++) {
+				fputws(buf, f);
+				fgetws(buf, 1024, Mau);
+			}
+
+			if (iDemSoThich(sv.SoThich) == 0) {
+				fgetws(buf, 1024, Mau);
+				fgetws(buf, 1024, Mau);
+			}
+			else {
+				ReplaceString(buf, HobbyElement, End, sv.SoThich);
+				fputws(buf, f);
+				fgetws(buf, 1024, Mau);
+				fgetws(buf, 1024, Mau);
+			}
+		}
+
+		//Change late file
+		if (wcsstr(buf, InfoFooter) != NULL) {
+			wchar_t* keybegin = (wchar_t*)malloc(125);
+			for (i = 0; buf[i] != '\t' && buf[i] != ' '; i++)
+			{
+				keybegin[i] = buf[i];
+			}
+			keybegin[i] = '\0';
+
+			ReplaceString(buf, keybegin, EndFooter, NumberStudent_Name);
+			free(keybegin);
+		}
+
+		fputws(buf, f);
 	}
+
+	//Close file && delete memory
+	fclose(Mau);
 	fclose(f);
+	free(KHOA);
+	free(Ten_MSSV);
+	free(buf);
 }
 
 //Sandardized string in SINHVIEN struct
-void _ChuanHoaSV(SINHVIEN &sv,wchar_t* wKhoaHoc)
+void _ChuanHoaSV(SINHVIEN &sv)
 {
 	_ChuanHoa(sv.MSSV);
 	_ChuanHoa(sv.HoTen);
 	_ChuanHoa(sv.Khoa);
-	_ChuanHoa(wKhoaHoc);
 	_ChuanHoa(sv.NgaySinh);
 	_ChuanHoa(sv.Email);
 	_ChuanHoa(sv.AnhCaNhan);

@@ -16,13 +16,13 @@ void main()
 	FILE *fSV_in = _wfopen(L"ThongTinSinhVien.csv", L"rt, ccs=UTF-8");
 
 	if (!fSV_in){
-		printf("Khong tim thay file!!!\n");
+		wprintf(L"Không tìm thấy file!!!\n");
 	}
 	else
 	{
 		_XuLiFile(fSV_in);
 		fclose(fSV_in);
 
-		wprintf(L"ĐÃ HOÀN THÀNH\n File được lưu trong //Output\n");
+		wprintf(L"\n\n\nĐÃ HOÀN THÀNH\n File được lưu trong //Output\n");
 	}	
 }
